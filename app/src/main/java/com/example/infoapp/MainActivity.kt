@@ -3,12 +3,11 @@ package com.example.infoapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.ListItem
-import androidx.navigation.NavHost
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.infoapp.ui.theme.InfoAppTheme
+import com.example.infoapp.ui_components.InfoScreen
 import com.example.infoapp.ui_components.MainScreen
 import com.example.infoapp.utils.ListItem
 import com.example.infoapp.utils.Routes
@@ -33,7 +32,7 @@ class MainActivity : ComponentActivity() {
                    }
                 }
                     composable(Routes.INFO_SCREEN){
-
+                        InfoScreen(item = item!!)
                     }
                     
                 }
