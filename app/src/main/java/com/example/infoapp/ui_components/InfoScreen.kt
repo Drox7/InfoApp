@@ -1,15 +1,27 @@
 package com.example.infoapp.ui_components
 
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.modifier.modifierLocalMapOf
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.example.infoapp.utils.ListItem
 @Composable
 fun InfoScreen(item: ListItem){
@@ -26,9 +38,42 @@ fun InfoScreen(item: ListItem){
             AssetImage(
                 imageName = item.imageName,
                 contentDescription = item.title,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .height(200.dp)
             )
+            Text(
+                modifier= Modifier.fillMaxWidth(),
+                text = item.title,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            )
+            HtmlLoader(htmlName = item.htmlName )
         }
     }
+}
+
+@Composable
+fun HtmlLoader(htmlName: String){
+    val context = LocalContext.current
+    val assetManger = context.assets
+    val inputStream = assetManger.open("html/$htmlName")
+    val size = inputStream.available()
+    val buffer = ByteArray(size)
+    inputStream.read(buffer)
+    val htmlString = String(buffer)
+
+    AndroidView(factory = {
+        WebView(it).apply {
+            webViewClient = WebViewClient()
+            loadData(htmlString, "text/html", "utf-8")
+        }
+    })
+}
+@Preview
+@Composable
+fun PrevInfoScreen () {
+     val list = ListItem("Апельсин","apelsin.png","apelsin.html")
+    InfoScreen(list)
 }
