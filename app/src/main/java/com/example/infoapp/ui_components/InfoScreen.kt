@@ -2,6 +2,7 @@ package com.example.infoapp.ui_components
 
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +14,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
@@ -22,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.example.infoapp.ui.theme.MainRed
 import com.example.infoapp.utils.ListItem
 @Composable
 fun InfoScreen(item: ListItem){
@@ -42,13 +45,23 @@ fun InfoScreen(item: ListItem){
                     .fillMaxWidth()
                     .height(200.dp)
             )
-            Text(
-                modifier= Modifier.fillMaxWidth(),
-                text = item.title,
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp
-            )
+            Card (
+                shape = RoundedCornerShape(bottomEnd = 10.dp, bottomStart = 10.dp)
+                ) {
+                    Text(
+                        modifier= Modifier
+                            .fillMaxWidth()
+                            .background(MainRed)
+                            .padding(5.dp)
+                        ,
+                        text = item.title,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        color = Color.White
+                    )
+                }
+
             HtmlLoader(htmlName = item.htmlName )
         }
     }
