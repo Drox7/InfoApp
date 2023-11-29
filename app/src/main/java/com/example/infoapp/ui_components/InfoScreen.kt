@@ -77,12 +77,15 @@ fun HtmlLoader(htmlName: String){
     inputStream.read(buffer)
     val htmlString = String(buffer)
 
-    AndroidView(factory = {
+    AndroidView(
+        modifier = Modifier.fillMaxSize()
+        ,
+        factory = {
         WebView(it).apply {
             webViewClient = WebViewClient()
             loadData(htmlString, "text/html", "utf-8")
         }
-    })
+        } )
 }
 @Preview
 @Composable
