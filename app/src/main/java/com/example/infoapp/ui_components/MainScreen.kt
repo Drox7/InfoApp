@@ -3,6 +3,7 @@ package com.example.infoapp.ui_components
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
@@ -10,16 +11,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.infoapp.MainViewModel
 
 import com.example.infoapp.utils.DrawerEvents
-import com.example.infoapp.utils.IdArrayList
+
 import com.example.infoapp.utils.ListItem
 import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
-    mainViewModel: MainViewModel,
+    mainViewModel: MainViewModel = hiltViewModel(),
     onClick: (ListItem) -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
@@ -53,7 +55,7 @@ fun MainScreen(
         }
     ) {
         LazyColumn(modifier = Modifier.fillMaxSize()){
-            items(mainList.value){ item ->
+            items(mainList.value){item ->
                 MainListItem(item = item) {ListItem ->
                    onClick(ListItem)
                 }
