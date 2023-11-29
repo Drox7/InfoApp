@@ -81,8 +81,8 @@ fun AssetImage(imageName: String, contentDescription: String, modifier: Modifier
 @Preview
 @Composable
 fun PrevMainListItem() {
-   val list = ListItem("Апельсин","apelsin.png","test.html")
-    MainListItem(list) {
+   //val list = ListItem("Апельсин","apelsin.png","test.html")
+    //MainListItem(list) {
 
-    }
+   // }
 }

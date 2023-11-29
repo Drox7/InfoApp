@@ -90,6 +90,6 @@ fun HtmlLoader(htmlName: String){
 @Preview
 @Composable
 fun PrevInfoScreen () {
-     val list = ListItem("Апельсин","apelsin.png","apelsin.html")
-    InfoScreen(list)
+     //val list = ListItem("Апельсин","apelsin.png","apelsin.html")
+   // InfoScreen(list)
 }
