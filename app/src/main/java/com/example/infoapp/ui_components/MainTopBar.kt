@@ -1,7 +1,6 @@
 package com.example.infoapp.ui_components
 
-import android.icu.text.CaseMap.Title
-import androidx.compose.material.BackdropScaffoldState
+import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
@@ -9,17 +8,17 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.rememberScaffoldState
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun MainTopBar(title: String, scaffoldState: ScaffoldState) {
+fun MainTopBar(
+    title: String,
+    scaffoldState: ScaffoldState,
+    onFavClick: () -> Unit
+) {
     val coroutine = rememberCoroutineScope()
     TopAppBar(
         title = {
@@ -34,27 +33,23 @@ fun MainTopBar(title: String, scaffoldState: ScaffoldState) {
                     }
                 }
             ) {
-                Icon(imageVector = Icons.Default.Menu,
-                    contentDescription ="Menu" )
+                Icon(
+                    imageVector = Icons.Default.Menu,
+                    contentDescription = "Menu"
+                )
             }
         },
         actions = {
             IconButton(
-                onClick = { 
-                    coroutine.launch {
-
-                    }
+                onClick = {
+                    onFavClick()
                 }
             ) {
-                Icon(imageVector = Icons.Default.Favorite,
-                    contentDescription ="Favorite" )
+                Icon(
+                    imageVector = Icons.Default.Favorite,
+                    contentDescription = "Favorite"
+                )
             }
         }
     )
 }
-
-@Preview
-@Composable
-fun PreviewMainTopBar() {
-    MainTopBar(title = "Menu test",
-        scaffoldState = rememberScaffoldState() )}

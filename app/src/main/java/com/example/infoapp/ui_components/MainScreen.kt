@@ -7,17 +7,17 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.infoapp.MainViewModel
-
 import com.example.infoapp.utils.DrawerEvents
-
 import com.example.infoapp.utils.ListItem
 import kotlinx.coroutines.launch
+
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
@@ -30,14 +30,19 @@ fun MainScreen(
     val topBarTitle = remember {
         mutableStateOf("Грибы")
     }
-    mainViewModel.getAllItemsByCategory(topBarTitle.value)
+    LaunchedEffect(Unit){
+        mainViewModel.getAllItemsByCategory(topBarTitle.value)
+    }
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
             MainTopBar(
                 title = topBarTitle.value,
                 scaffoldState
-            )
+            ){
+                topBarTitle.value = "Избранные"
+                mainViewModel.getFavorites()
+            }
         },
         drawerContent = {
             DrawerMenu(){ event ->
@@ -45,7 +50,6 @@ fun MainScreen(
                     is DrawerEvents.OnItemClick -> {
                         topBarTitle.value = event.title
                         mainViewModel.getAllItemsByCategory(event.title)
-
                     }
                 }
                 coroutineScope.launch {
@@ -55,12 +59,11 @@ fun MainScreen(
         }
     ) {
         LazyColumn(modifier = Modifier.fillMaxSize()){
-            items(mainList.value){item ->
-                MainListItem(item = item) {ListItem ->
-                   onClick(ListItem)
+            items(mainList.value){ item ->
+                MainListItem(item = item){ listItem ->
+                    onClick(listItem)
                 }
             }
         }
     }
 }
-
