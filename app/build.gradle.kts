@@ -53,7 +53,7 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     //dagger
     implementation("com.google.dagger:hilt-android:2.46.1")
     kapt("com.google.dagger:hilt-android-compiler:2.46.1")
